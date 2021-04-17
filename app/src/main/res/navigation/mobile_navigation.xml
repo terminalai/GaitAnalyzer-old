@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_splash">
+
+
+
+    <fragment
+        android:id="@+id/nav_auth"
+        android:name="com.thepyprogrammer.gaitanalyzer.ui.auth.AuthFragment"
+        android:label="fragment_auth"
+        tools:layout="@layout/fragment_auth" >
+        <action
+            android:id="@+id/action_nav_auth_to_mainFragment"
+            app:destination="@id/nav_main" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_identification"
+        android:name="com.thepyprogrammer.gaitanalyzer.ui.auth.identification.IdentificationFragment"
+        android:label="Identification" >
+        <action
+            android:id="@+id/action_nav_identification_to_authFragment"
+            app:destination="@id/nav_auth" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_main"
+        android:name="com.thepyprogrammer.gaitanalyzer.ui.main.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_nav_main_to_nav_identification"
+            app:destination="@id/nav_identification" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_splash"
+        android:name="com.thepyprogrammer.gaitanalyzer.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_nav_identification"
+            app:destination="@id/nav_identification" />
+    </fragment>
+</navigation>

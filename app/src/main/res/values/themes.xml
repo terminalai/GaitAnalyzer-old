@@ -1,0 +1,84 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <attr name="bubbleColor" format="reference" />
+    <attr name="switchThumbEnabled" format="color" />
+    <attr name="switchThumbDisabled" format="color" />
+    <attr name="switchTrackEnabled" format="color" />
+    <attr name="switchTrackDisabled" format="color" />
+
+    <!-- Base application theme. -->
+    <style name="Theme.GaitAnalyzer" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:windowBackground">@color/backgroundLight</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="actionBarPopupTheme">@style/Theme.GaitAnalyzer.PopupOverlay</item>
+        <item name="bubbleColor">@color/bubbleLight</item>
+        <item name="selectableItemBackground">@drawable/ripple</item>
+        <item name="switchThumbEnabled">@color/switchThumbEnabledLight</item>
+        <item name="switchThumbDisabled">@color/switchThumbDisabledLight</item>
+        <item name="switchTrackEnabled">@color/switchTrackEnabledLight</item>
+        <item name="switchTrackDisabled">@color/switchTrackDisabledLight</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#2196F3</item>
+        <item name="colorPrimaryDark">#1976D2</item>
+        <item name="colorAccent">#03A9F4</item>
+        <!-- Secondary brand color. -->
+
+
+
+        <item name="android:divider">@color/separatorLight</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/black</item>
+        <!-- Customize your theme here. -->
+        <!-- text -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorTertiary">@color/text_tertiary</item>
+    </style>
+
+    <style name="Theme.GaitAnalyzer.NoActionBar" parent="Theme.GaitAnalyzer">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.GaitAnalyzer.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.GaitAnalyzer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/backgroundLight</item>
+        <item name="android:textColor">@color/textPrimary</item>
+    </style>
+
+
+    <style name="Theme.GaitAnalyzer.LoginRegister" parent="Theme.GaitAnalyzer">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/blue_700</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlHighlight">@android:color/white</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorButtonNormal">@color/orange</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:editTextColor">@color/white</item>
+    </style>
+
+    <style name="Theme.GaitAnalyzer.Profile" parent="Theme.GaitAnalyzer">
+        <item name="android:windowBackground">@color/blue_800</item>
+        <item name="colorButtonNormal">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="Theme.GaitAnalyzer.Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/black</item>
+    </style>
+
+    <style name="Theme.GaitAnalyzer.DarkActionBar.BackButton" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+    <style name="Theme.GaitAnalyzer.Splash" parent="Theme.GaitAnalyzer.NoActionBar">
+        <!-- <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
+        <item name="fullscreenTextColor">@color/light_blue_A200</item> -->
+    </style>
+
+    <style name="Theme.GaitAnalyzer.Intro" parent="Theme.Intro" />
+</resources>
