@@ -11,9 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.thepyprogrammer.gaitanalyzer.R
 import com.thepyprogrammer.gaitanalyzer.ui.main.home.HomeViewModel
 import com.thepyprogrammer.ktlib.Util
-import java.time.*
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 
-class FreezeDataAdapter(private val activity: AppCompatActivity, private val homeViewModel: HomeViewModel) :
+class FreezeDataAdapter(
+    private val activity: AppCompatActivity,
+    private val homeViewModel: HomeViewModel
+) :
     RecyclerView.Adapter<FreezeDataAdapter.FreezeDataViewHolder>() {
     private val completeViewModel: CompleteViewModel =
         ViewModelProvider((activity as FragmentActivity)).get(CompleteViewModel::class.java)
@@ -24,10 +29,13 @@ class FreezeDataAdapter(private val activity: AppCompatActivity, private val hom
     private fun setData(freezesData: MutableList<Long>?) {
         val map = hashMapOf<String, Int?>()
         freezesData?.forEach {
-            val date = LocalDateTime.ofInstant(Instant.ofEpochSecond((it / (1000 * 3600 * 24)) * (1000 * 3600 * 24)), ZoneId.systemDefault()).toLocalDate()
+            val date = LocalDateTime.ofInstant(
+                Instant.ofEpochSecond((it / (1000 * 3600 * 24)) * (1000 * 3600 * 24)),
+                ZoneId.systemDefault()
+            ).toLocalDate()
             val dateString = Util.dateFormat.format(date)
             map[dateString] =
-                if(map.containsKey(dateString))
+                if (map.containsKey(dateString))
                     map[dateString]?.plus(1)
                 else 1
         }

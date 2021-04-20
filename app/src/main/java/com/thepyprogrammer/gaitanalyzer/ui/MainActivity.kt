@@ -21,10 +21,7 @@ import com.thepyprogrammer.gaitanalyzer.R
 import com.thepyprogrammer.gaitanalyzer.databinding.ActivityMainBinding
 import com.thepyprogrammer.gaitanalyzer.model.account.firebase.FirebaseUtil
 import com.thepyprogrammer.gaitanalyzer.ui.main.home.HomeViewModel
-import com.thepyprogrammer.gaitanalyzer.ui.main.home.WalkingMode
 import com.thepyprogrammer.gaitanalyzer.ui.onboarding.OnboardingFragment
-import com.thepyprogrammer.ktlib.array.Vector
-import com.thepyprogrammer.ktlib.io.KFile
 import java.io.File
 import java.io.PrintWriter
 
@@ -94,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             val fragments = supportFragmentManager.fragments
             for (fragment in fragments) {
                 if (!fragment.isVisible) continue
-                if (fragment is OnboardingFragment && (fragment as OnboardingFragment).onBackPressed()) {
+                if (fragment is OnboardingFragment && fragment.onBackPressed()) {
                     return true
                 }
             }
@@ -110,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         // system behavior (probably exit the activity)
         return super.onKeyDown(keyCode, event)
     }
-    
+
     fun setScreenOn() {
         val pm = getSystemService(POWER_SERVICE) as PowerManager
         if (!pm.isIgnoringBatteryOptimizations(packageName)) {
@@ -118,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                 action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
                 data = Uri.parse("package: $packageName")
             }
-            startActivity(intent);
+            startActivity(intent)
         }
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

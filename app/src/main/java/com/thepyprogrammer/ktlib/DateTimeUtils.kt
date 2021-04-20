@@ -1,8 +1,5 @@
 package com.thepyprogrammer.ktlib
 
-import android.text.format.DateUtils
-import android.widget.TextView
-import androidx.databinding.BindingAdapter
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
