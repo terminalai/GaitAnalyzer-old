@@ -43,6 +43,8 @@ class HomeViewModel : ViewModel() {
             freezesWriter.out?.println(time)
         }
         freezesWriter.close()
+
+
     }
 
 
@@ -50,6 +52,7 @@ class HomeViewModel : ViewModel() {
         super.onCleared()
 
         save()
+
 
     }
 }
