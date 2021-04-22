@@ -1,5 +1,6 @@
 package com.thepyprogrammer.gaitanalyzer.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.hardware.Sensor
@@ -20,9 +21,11 @@ import androidx.navigation.fragment.NavHostFragment
 import com.thepyprogrammer.gaitanalyzer.R
 import com.thepyprogrammer.gaitanalyzer.databinding.ActivityMainBinding
 import com.thepyprogrammer.gaitanalyzer.model.firebase.FirebaseUtil
+import com.thepyprogrammer.gaitanalyzer.ui.auth.AuthViewModel
 import com.thepyprogrammer.gaitanalyzer.ui.main.home.HomeViewModel
 import com.thepyprogrammer.gaitanalyzer.ui.onboarding.OnboardingFragment
 import com.thepyprogrammer.ktlib.io.KFile
+import com.thepyprogrammer.ktlib.randInt
 import com.thepyprogrammer.ktlib.toEpoch
 import java.io.File
 import java.io.PrintWriter
@@ -52,22 +55,9 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         
-        FirebaseUtil.retrieveFreeze(this)
+        FirebaseUtil.retrieveFreeze(this) {}
 
 
-        val time = mutableListOf(
-            LocalDateTime.of(2021, 4, 19, 2, 22, 30).toEpoch(),
-            LocalDateTime.of(2021, 4, 19, 2, 26, 30).toEpoch(),
-            LocalDateTime.of(2021, 4, 20, 3, 22, 30).toEpoch(),
-            LocalDateTime.of(2021, 4, 20, 3, 27, 30).toEpoch(),
-            LocalDateTime.of(2021, 4, 4, 10, 0).toEpoch()
-        )
-
-        val freezesFile = File(filesDir, "freezes.txt")
-        if (!freezesFile.exists()) freezesFile.createNewFile()
-        val freezesWriter = KFile.append(freezesFile)
-        time.forEach { freezesWriter.out?.println(it) }
-        freezesWriter.close()
 
 
         val navHostFragment =
@@ -95,14 +85,28 @@ class MainActivity : AppCompatActivity() {
 
 
     fun logout(): Boolean {
-        val accountDetails = File(filesDir, "accountDetails.txt")
-        if (accountDetails.exists())
-            PrintWriter(accountDetails).close()
 
-        FirebaseUtil.user = null
+        val freezesFile = File(filesDir, "freezes.txt")
+        FirebaseUtil.uploadFreeze(freezesFile) {
+            for(filename in arrayOf("freezes", "accs", "gyros", "accountDetails", "profileImageURI")) {
+                val file = File(filesDir, "$filename.txt")
+                if(!file.exists()) file.createNewFile()
+                val fileWriter = KFile.write(file)
+                fileWriter.close()
+            }
 
-        navController.navigate(R.id.action_nav_main_to_nav_identification)
+            FirebaseUtil.user = null
+
+            val authViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+            authViewModel.pName.value = ""
+            authViewModel.password.value = ""
+            authViewModel.error.setValue("DON'T LOGIN", "")
+            authViewModel.userResult.value = null
+
+            navController.navigate(R.id.action_nav_main_to_nav_identification)
+        }
         return true
+
     }
 
 
@@ -132,9 +136,10 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         val freezesFile = File(filesDir, "freezes.txt")
-        FirebaseUtil.uploadFreeze(freezesFile, this)
+        FirebaseUtil.uploadFreeze(freezesFile)
     }
 
+    @SuppressLint("BatteryLife")
     fun setScreenOn() {
         val pm = getSystemService(POWER_SERVICE) as PowerManager
         if (!pm.isIgnoringBatteryOptimizations(packageName)) {

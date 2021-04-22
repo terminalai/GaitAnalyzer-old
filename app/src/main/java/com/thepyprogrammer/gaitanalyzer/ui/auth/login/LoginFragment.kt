@@ -65,7 +65,10 @@ class LoginFragment : Fragment() {
                     FirebaseUtil.user = viewModel.userResult.value
                     FirebaseUtil.user?.password?.let { it1 -> Log.d("TAG", it1) }
                     binding.loading.visibility = View.GONE
-                    (activity as MainActivity).navController.navigate(R.id.nav_main)
+                    FirebaseUtil.retrieveImage(requireActivity()) {
+                        (activity as MainActivity).navController.navigate(R.id.nav_main)
+                    }
+
                 }
             }
 
@@ -73,6 +76,4 @@ class LoginFragment : Fragment() {
 
         return view
     }
-
 }
-
